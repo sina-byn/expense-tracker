@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     income BOOL DEFAULT true,
     amount INT,
+    categories TEXT[],
     created_at TIMESTAMPTZ DEFAULT CURRENT_DATE,
     user_id UUID REFERENCES auth.users (id)
 );
