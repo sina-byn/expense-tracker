@@ -1,18 +1,18 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 
-import "./index.css";
+import './index.css';
+
+// * providers
+import AuthContextProvider from './context/AuthContext.tsx';
 
 // * components
-import HomePage from "./pages/index.tsx";
+import HomePage from './pages/index.tsx';
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App>
-      <div className="container mx-auto p-4">
-        <HomePage />
-      </div>
-    </App>
+    <AuthContextProvider>
+      <HomePage />
+    </AuthContextProvider>
   </StrictMode>,
 );
