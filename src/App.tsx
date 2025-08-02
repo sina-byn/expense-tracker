@@ -6,17 +6,19 @@ import { createClient, type Session } from "@supabase/supabase-js";
 
 export const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
+  import.meta.env.VITE_SUPABASE_ANON_KEY,
 );
 
 type AppProps = { children: React.ReactNode };
 
 const App = ({ children }: AppProps) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [pending, setPending] = useState<boolean>(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      setPending(false);
     });
 
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -25,6 +27,8 @@ const App = ({ children }: AppProps) => {
 
     return () => data.subscription.unsubscribe();
   }, []);
+
+  if (pending) return null;
 
   if (!session) {
     return (
