@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     income BOOL DEFAULT true,
     amount INT,
     categories TEXT[],
-    created_at TIMESTAMPTZ DEFAULT CURRENT_DATE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
     user_id UUID REFERENCES auth.users (id)
 );
 
